@@ -1,4 +1,4 @@
-const { UserInputError } = require("apollo-server-express")
+const { uuid } = require('uuidv4')
 const { 
     createTodo, 
     updateTodo, 
@@ -8,8 +8,13 @@ const {
 
 const todoMutations = {
     addTodo: async (_, args) => {
-        const todo = { ...args.input, is_completed: false }
-        const data = await createTodo(todo)
+        const todo = { ...args.input }
+        const { isCompleted, ...newTodo } = todo
+        const data = await createTodo({ 
+            ...newTodo, 
+            id: uuid(),
+            is_completed: isCompleted
+        })
 
         return {
             ...data,
@@ -21,7 +26,8 @@ const todoMutations = {
     },
     updateTodo: async (_, args) => {
         const todo = { ...args.input }
-        const data = await updateTodo(args.id, todo)
+        const { isCompleted, ...newTodo } = todo
+        const data = await updateTodo(args.id, { ...newTodo, is_completed: isCompleted })
 
         return {
             ...data,

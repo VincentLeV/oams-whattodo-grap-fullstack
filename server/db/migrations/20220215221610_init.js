@@ -1,8 +1,8 @@
 exports.up = function(knex) {
-    return knex.schema.createTable("todo", table => {
-        table.increments("id")
+    return knex.schema.createTable("todos", table => {
+        table.uuid("id").unique()
         table.string("description").notNullable()
-        table.date("deadline")
+        table.timestamp("deadline")
         table.integer("priority")
         table.boolean("is_completed")
         table.timestamps(true, true)
@@ -10,5 +10,5 @@ exports.up = function(knex) {
 }
 
 exports.down = function(knex) {
-    return knex.schema.dropTable("todo")
+    return knex.schema.dropTable("todos")
 }

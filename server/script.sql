@@ -1,11 +1,12 @@
 CREATE TABLE todos (
-    id SERIAL PRIMARY KEY, 
-    description text NOT NULL, 
-    deadline date, 
-    priority integer, 
-    is_completed boolean,
-    created_at date,
-    updated_at date
+    id uuid DEFAULT uuid_generate_v4(), 
+    description TEXT NOT NULL, 
+    deadline TIMESTAMP WITH TIME ZONE, 
+    priority INTEGER, 
+    is_completed BOOLEAN,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
 
 INSERT INTO todos (description, deadline, priority, is_completed, created_at, updated_at)

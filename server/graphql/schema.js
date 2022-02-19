@@ -6,7 +6,7 @@ const { Todo, Common } = require("./typeDefs")
 const Query = gql`
 	type Query {
         todos: [Todo]!
-        todo(id: Int!): Todo!
+        todo(id: UUID!): Todo!
         todoCount: Int!
     }
 `
@@ -14,8 +14,8 @@ const Query = gql`
 const Mutation = gql`
     type Mutation {
         addTodo(input: TodoInput): Todo
-        updateTodo(id: Int!, input: TodoInput): Todo
-        deleteTodo(id: Int!): TodoId
+        updateTodo(id: UUID!, input: TodoInput): Todo
+        deleteTodo(id: UUID!): TodoId
         deleteTodos: [TodoId]
     }
 `

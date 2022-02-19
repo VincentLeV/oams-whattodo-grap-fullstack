@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express")
 
 module.exports = gql`
     type Todo implements Timestamps {
-        id: ID!
+        id: UUID!
         description: String!
         deadline: Date
         priority: Int!
@@ -12,12 +12,13 @@ module.exports = gql`
     }
 
     input TodoInput {
-        description: String!
+        description: String
         deadline: Date
         priority: Int = 0
+        isCompleted: Boolean = false
     }
 
     type TodoId {
-        id: Int!
+        id: UUID!
     }
 `

@@ -5,34 +5,11 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  HttpLink,
-  split
+  HttpLink
 } from "@apollo/client"
-import { setContext } from "@apollo/client/link/context"
-import { getMainDefinition } from "@apollo/client/utilities"
-// import { createHttpLink } from 'apollo-link-http'
-// import { WebSocketLink } from "@apollo/client/link/ws"
 
-const httpLink = new HttpLink({ uri: "https://oams-whattodo-grap.herokuapp.com/graphql" })
-// const httpLink = createHttpLink({ uri: "http://localhost:5000/graphql" })
-
-// const wsLink = new WebSocketLink({
-//   uri: "wss://oams-whattodo-perg.herokuapp.com/graphql",
-//   options: {
-//     reconnect: true
-//   }
-// })
-
-// const splitLink = split(({ query }) => {
-//   const definition = getMainDefinition(query)
-//   return (
-//     definition.kind === "OperationDefinition" &&
-//     definition.operation === "subscription"
-//   )
-// }, 
-//   wsLink, 
-//   authLink.concat(httpLink)
-// )
+// const httpLink = new HttpLink({ uri: "https://oams-whattodo-grap.herokuapp.com/graphql" })
+const httpLink = new HttpLink({ uri: "http://localhost:5000/graphql" })
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),

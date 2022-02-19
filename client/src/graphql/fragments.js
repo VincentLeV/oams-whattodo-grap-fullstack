@@ -7,7 +7,5 @@ export const TODO_DETAILS = gql`
         deadline
         priority
         isCompleted
-        createdAt
-        updatedAt
     }
 `
