@@ -4,8 +4,8 @@ const schema = require("./schema")
 
 const apolloServer = new ApolloServer({
 	schema,
-	introspection: true,
-	playground: true
+	// introspection: true,
+	// playground: true
 })
 
 module.exports = apolloServer
