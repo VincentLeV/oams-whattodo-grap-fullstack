@@ -1,24 +1,24 @@
 const db = require("../index")
 
 const getTodos = async () => {
-    const todos = await db("todo")
+    const todos = await db("todos")
     return todos
 }
 
 const getTodo = async (id) => {
-    const todos = await db("todo").where("id", id)
+    const todos = await db("todos").where("id", id)
     return todos[0]
 }   
 
 const createTodo = async (todo) => {
-    const todos = await db("todo").insert(todo).returning("*")
+    const todos = await db("todos").insert(todo).returning("*")
 
     if (!todos) throw new Error("Error. Can't create todo")
     return todos[0]
 }
 
 const updateTodo = async (id, todo) => {
-    const todos = await db("todo")
+    const todos = await db("todos")
         .where({ id: id })
         .update({
             ...todo,
@@ -29,7 +29,7 @@ const updateTodo = async (id, todo) => {
 }
 
 const deleteTodo = async (todoId) => {
-    const [id] = await db("todo")
+    const [id] = await db("todos")
         .del()
         .where({ id: todoId })
         .returning("id")
@@ -39,10 +39,10 @@ const deleteTodo = async (todoId) => {
 }
 
 const deleteTodos = async () => {
-    const todos = await db("todo")
+    const todos = await db("todos")
     const todoIds = []
     for (const todo of todos) {
-        const [id] = await db("todo")
+        const [id] = await db("todos")
             .where("id", todo.id)
             .del()
             .returning("id")

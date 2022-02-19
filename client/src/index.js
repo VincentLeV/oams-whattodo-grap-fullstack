@@ -10,10 +10,10 @@ import {
 } from "@apollo/client"
 import { setContext } from "@apollo/client/link/context"
 import { getMainDefinition } from "@apollo/client/utilities"
-import { createHttpLink } from 'apollo-link-http'
+// import { createHttpLink } from 'apollo-link-http'
 // import { WebSocketLink } from "@apollo/client/link/ws"
 
-const httpLink = createHttpLink({ uri: "https://oams-whattodo-perg.herokuapp.com/graphql" })
+const httpLink = new HttpLink({ uri: "https://oams-whattodo-grap.herokuapp.com/graphql" })
 // const httpLink = createHttpLink({ uri: "http://localhost:5000/graphql" })
 
 // const wsLink = new WebSocketLink({
@@ -36,8 +36,7 @@ const httpLink = createHttpLink({ uri: "https://oams-whattodo-perg.herokuapp.com
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: httpLink,
-  connectToDevTools: true
+  link: httpLink
 })
 
 ReactDOM.render(
