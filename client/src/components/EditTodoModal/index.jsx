@@ -15,7 +15,6 @@ const style = {
     p: 4,
 }
 
-
 export default function EditTodoModal({ from, todo, project, isModalOpen, setIsModalOpen, setAnchor }) {
     const handleClose = () => setIsModalOpen(false)
 

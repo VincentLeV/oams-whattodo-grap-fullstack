@@ -6,6 +6,7 @@ const {
     deleteProject,
     deleteProjects
 } = require("../../../models/project")
+const { deleteProjectTodosOfProject } = require("../../../models/projectTodo")
 const { formatProjects } = require("../../helpers")
 
 const projectMutations = {
@@ -36,18 +37,11 @@ const projectMutations = {
         }
     },
     deleteProject: async (_, args) => {
+        await deleteProjectTodosOfProject(args.id)
         const data = await deleteProject(args.id)
         return { id: data.id }
     },
     deleteProjects: async () => await deleteProjects()
-    // deleteProjects: async () => {
-    //     const ids = await deleteProjects()
-    //     const projectIds = []
-    //     for (const id of ids) {
-    //         projectIds.push(id)
-    //     }
-    //     return { ids: projectIds }
-    // }
 }
 
 module.exports = projectMutations

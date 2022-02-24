@@ -1,10 +1,10 @@
 import React from "react"
 import { Box, Divider } from "@mui/material"
-
 import { useMutation } from "@apollo/client"
+    
 import { useToast } from "../../contexts/ToastContext"
 import Todo from "../Todo"
-import { UPDATE_TODO } from "../../graphql/mutations"
+import { UPDATE_TODO } from "../../graphql/todos/mutations"
 
 export default function TodoContainer({ todo }) {
     const { setToast } = useToast()

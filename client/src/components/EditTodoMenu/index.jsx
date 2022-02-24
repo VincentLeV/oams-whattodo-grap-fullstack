@@ -9,10 +9,10 @@ import {
 import EditRoundedIcon from "@mui/icons-material/EditRounded"
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded"
 
-import { DELETE_TODO } from "../../graphql/mutations"
+import { DELETE_TODO } from "../../graphql/todos/mutations"
 import { useMutation } from "@apollo/client"
 import { useToast } from "../../contexts/ToastContext"
-import { ALL_TODOS } from "../../graphql/queries"
+import { ALL_TODOS } from "../../graphql/todos/queries"
 
 export default function EditTodoMenu({ todo, anchor, setAnchor, setIsModalOpen }) {
     const { setToast } = useToast()

@@ -9,20 +9,29 @@ import {
     Button
 } from "@mui/material"
 import FlagRoundedIcon from "@mui/icons-material/FlagRounded"
+import { useMutation } from "@apollo/client"
 
-// import Axios from "../../services/axios"
-import { useProjects } from "../../contexts/ProjectContext"
+import { ADD_PROJECT_TODO } from "../../graphql/projectTodos/mutations"
+import { SINGLE_PROJECT } from "../../graphql/projects/queries"
 import PriorityMenu from "../PriorityMenu"
 import { useToast } from "../../contexts/ToastContext"
 import DTPicker from "../DTPicker"
 
 export default function AddProjectTodoForm({ project, setIsModalOpen }) {
-    const { projects, setProjects } = useProjects()
     const { setToast } = useToast()
     const [ anchorEl, setAnchorEl ] = useState(null)
     const [ values, setValues ] = useState({ desc: "" })
     const [ priority, setPriority ] = useState({ label: "", value: 0, color: "" })
     const [ deadline, setDeadline ] = useState(new Date()) 
+
+    const [ createProjectTodo ] = useMutation( ADD_PROJECT_TODO, {
+        refetchQueries: [{ query: SINGLE_PROJECT, variables: {projectId: project.id} }],
+        onError: (err) => setToast({ 
+            show: true, 
+            msg: err?.message, 
+            severity: "error" 
+        })
+    })
 
     const handleChange = (type) => (e) => {
         setValues({ ...values, [type]: e.target.value })
@@ -32,14 +41,10 @@ export default function AddProjectTodoForm({ project, setIsModalOpen }) {
         setValues({ desc: "" })
 
         try {
-            const newTodo = { description: values.desc, priority: priority.value, deadline: deadline, isCompleted: false }
-            project.todos.push(newTodo)
-            // await Axios.updateProject(project.id, project)
-
-            const index = projects.findIndex(p => p.id === project.id)
-            const newProjects = [...projects]
-            newProjects.splice(index, 1, project)
-            setProjects(newProjects)
+            const newTodo = { description: values.desc, priority: priority.value, deadline: deadline }
+            createProjectTodo({
+                variables: { projectId: project.id, input: newTodo }
+            })
             setIsModalOpen(false)
 
             setToast({ show: true, msg: "Successfully added new todo to project", severity: "success" })

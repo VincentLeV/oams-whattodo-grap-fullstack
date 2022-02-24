@@ -10,8 +10,10 @@ import {
     Stack
 } from "@mui/material"
 import FlagRoundedIcon from "@mui/icons-material/FlagRounded"
+import { useMutation } from "@apollo/client"
 
-// import Axios from "../../services/axios"
+import { UPDATE_PROJECT_TODO } from "../../graphql/projectTodos/mutations"
+import { SINGLE_PROJECT } from "../../graphql/projects/queries"
 import priorityList from "../../constants/priority"
 import PriorityMenu from "../PriorityMenu"
 import { useToast } from "../../contexts/ToastContext"
@@ -24,27 +26,35 @@ export default function EditProjectTodoForm({ todo, project, setIsModalOpen, set
     const [ priority, setPriority ] = useState({ label: "", value: todo.priority, color: "" })
     const [ deadline, setDeadline ] = useState(todo.deadline) 
 
+    const [ updateProjectTodo ] = useMutation( UPDATE_PROJECT_TODO, {
+        refetchQueries: [{ query: SINGLE_PROJECT, variables: {projectId: project.id} }],
+        onError: (err) => setToast({ 
+            show: true, 
+            msg: err?.message, 
+            severity: "error" 
+        }),
+    })
+
     const handleChange = (type) => (e) => {
         setValues({ ...values, [type]: e.target.value })
     }
 
     const handleEditTodo = async () => {
-        try {
-            const updatedTodo = { ...todo, description: values.desc, priority: priority.value, deadline: deadline }
-            const index = project.todos.findIndex(t => t.id === todo.id)
-            project.todos.splice(index, 1, updatedTodo)
-            // await Axios.updateProject( project.id, project )
-            setIsModalOpen(false)
-            setAnchor(null)
+        updateProjectTodo({
+            variables: {
+                updateProjectTodoId: todo.id, 
+                input: {
+                    description: values.desc,
+                    deadline: deadline,
+                    priority: priority.value,
+                    isCompleted: todo.isCompleted
+                }
+            }
+        })
+        setIsModalOpen(false)
+        setAnchor(null)
 
-            setToast({ show: true, msg: "Successfully edited project todo", severity: "success" })
-        } catch (err) {
-            setToast({ 
-                show: true, 
-                msg: err.response?.data?.message, 
-                severity: "error" 
-            })
-        }
+        setToast({ show: true, msg: "Successfully edited project todo", severity: "success" })
     }
 
     useEffect(() => {

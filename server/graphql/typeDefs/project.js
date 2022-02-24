@@ -4,7 +4,7 @@ module.exports = gql`
     type Project implements Timestamps {
         id: UUID!
         name: String!
-        todos: [Todo]
+        todos: [ProjectTodo]
         createdAt: Date!
         updatedAt: Date!
     }

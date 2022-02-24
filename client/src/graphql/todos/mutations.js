@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client"
 
-import { TODO_DETAILS } from "./fragments"
+import { TODO_DETAILS } from "../fragments"
 
 export const ADD_TODO = gql`
     mutation AddTodo($input: TodoInput){
@@ -21,8 +21,6 @@ export const UPDATE_TODO = gql`
 
 export const DELETE_TODO = gql`
     mutation DeleteTodo($deleteTodoId: UUID!) {
-        deleteTodo(id: $deleteTodoId) {
-            id
-        }
+        deleteTodo(id: $deleteTodoId)
     }
 `

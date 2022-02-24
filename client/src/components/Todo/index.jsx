@@ -50,7 +50,7 @@ export default function Todo({ from, todo, project, handleChange }) {
                         setIsModalOpen={setIsModalOpen} 
                     />
                     : <EditProjectTodoMenu 
-                        project={project}
+                        // project={project}
                         todo={todo}
                         anchor={anchor} 
                         setAnchor={setAnchor} 

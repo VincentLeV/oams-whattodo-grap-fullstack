@@ -1,13 +1,24 @@
-import React from "react"
-import {
-    Typography
-} from "@mui/material"
+import React, { useState, useEffect } from "react"
+import { Typography } from "@mui/material"
+import { useQuery } from "@apollo/client"
 
-import { useProjects } from "../contexts/ProjectContext"
+import { ALL_PROJECTS } from "../graphql/projects/queries"
 import ProjectContainer from "../components/ProjectContainer"
 
 export default function Projects() {
-    const { projects } = useProjects()
+    const [ projects, setProjects ] = useState([])
+    const projectResult = useQuery(ALL_PROJECTS)
+
+    useEffect(() => {
+        (async () => {
+            const allProjects = await projectResult?.data?.projects
+            console.log("🚀 ~ file: Main.jsx ~ line 22 ~ allProjects", allProjects)
+
+            if (allProjects) {
+                setProjects(allProjects) 
+            }
+        })()
+    }, [projectResult?.data])
 
     if ( projects.length === 0 ) {
         return (
@@ -17,9 +28,11 @@ export default function Projects() {
         )
     }
 
+    if ( projectResult.loading ) return <div>Loading...</div>
+
     return (
         <div>
-            {projects.map((project, i) => <ProjectContainer key={i} index={i} project={project} />)}
+            {projects.map((project, i) => <ProjectContainer key={project.id} index={i} project={project} />)}
         </div>
     )
 }

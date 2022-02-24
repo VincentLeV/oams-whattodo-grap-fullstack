@@ -11,16 +11,14 @@ import {
 import FlagRoundedIcon from "@mui/icons-material/FlagRounded"
 import { useMutation } from "@apollo/client"
 
-import { ADD_TODO } from "../../graphql/mutations"
-import { ALL_TODOS } from "../../graphql/queries"
-import { useTodos } from "../../contexts/TodosContext"
+import { ADD_TODO } from "../../graphql/todos/mutations"
+import { ALL_TODOS } from "../../graphql/todos/queries"
 import { sortTodos } from "../../utils/helpers"
 import PriorityMenu from "../PriorityMenu"
 import { useToast } from "../../contexts/ToastContext"
 import DTPicker from "../DTPicker"
 
 export default function AddTodoForm({ setIsModalOpen }) {
-    const { setTodos } = useTodos()
     const { setToast } = useToast()
     const [ anchorEl, setAnchorEl ] = useState(null)
     const [ values, setValues ] = useState({ desc: "" })
@@ -48,7 +46,7 @@ export default function AddTodoForm({ setIsModalOpen }) {
             } catch (err) {
                 setToast({ 
                     show: true, 
-                    msg: err?.graphQLErrors[0]?.message, 
+                    msg: err?.message, 
                     severity: "error" 
                 })
             }

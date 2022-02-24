@@ -33,7 +33,7 @@ export default function AddDial({ isModalOpen, setIsModalOpen, setModalType }) {
             sx={{ 
                 position: "fixed", 
                 bottom: { xs: "8vh", md: "8vh" }, 
-                right: { xs: "4vw", md: "25vw" },
+                right: { xs: "4vw", md: "21vw" },
                 zIndex: 1500
             }}
         >

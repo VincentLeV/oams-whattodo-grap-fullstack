@@ -38,6 +38,20 @@ const deleteProjectTodo = async (todoId) => {
     return id
 }
 
+const deleteProjectTodosOfProject = async (projectId) => {
+    const todos = await db("project_todos")
+    const todoIds = []
+    for (const todo of todos) {
+        const [id] = await db("project_todos")
+            .where("project_id", projectId)
+            .del()
+            .returning("id")
+        todoIds.push(id)
+    }
+
+    return todoIds
+}
+
 const deleteProjectTodos = async () => {
     const todos = await db("project_todos")
     const todoIds = []
@@ -58,5 +72,6 @@ module.exports = {
     createProjectTodo,
     updateProjectTodo,
     deleteProjectTodo,
+    deleteProjectTodosOfProject,
     deleteProjectTodos
 }

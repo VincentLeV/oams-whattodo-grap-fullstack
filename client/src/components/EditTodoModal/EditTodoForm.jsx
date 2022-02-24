@@ -12,8 +12,8 @@ import {
 import FlagRoundedIcon from "@mui/icons-material/FlagRounded"
 import { useMutation } from "@apollo/client"
 
-import { UPDATE_TODO } from "../../graphql/mutations"
-import { ALL_TODOS } from "../../graphql/queries"
+import { UPDATE_TODO } from "../../graphql/todos/mutations"
+import { ALL_TODOS } from "../../graphql/todos/queries"
 import { sortTodos } from "../../utils/helpers"
 import priorityList from "../../constants/priority"
 import PriorityMenu from "../PriorityMenu"
@@ -40,7 +40,7 @@ export default function EditTodoForm({ todo, setIsModalOpen, setAnchor }) {
                     query: ALL_TODOS,
                     data: {
                         ...dataInStore,
-                        todos: sortTodos(dataInStore.todos, "priority")
+                        todos: sortTodos(dataInStore.todos)
                     }
                 })
             } catch (err) {

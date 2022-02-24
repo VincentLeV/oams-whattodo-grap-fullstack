@@ -8,14 +8,23 @@ import {
 } from "@mui/material"
 import EditRoundedIcon from "@mui/icons-material/EditRounded"
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded"
+import { useMutation } from "@apollo/client"
 
-// import Axios from "../../services/axios"
+import { DELETE_PROJECT_TODO } from "../../graphql/projectTodos/mutations"
+import { ALL_PROJECTS } from "../../graphql/projects/queries"
 import { useToast } from "../../contexts/ToastContext"
-import { useProjects } from "../../contexts/ProjectContext" 
 
-export default function EditProjectTodoMenu({ todo, project, anchor, setAnchor, setIsModalOpen }) {
+export default function EditProjectTodoMenu({ todo, anchor, setAnchor, setIsModalOpen }) {
     const { setToast } = useToast()
-    const { projects } = useProjects()
+
+    const [ deleteProjectTodo ] = useMutation( DELETE_PROJECT_TODO, {
+        refetchQueries: [{ query: ALL_PROJECTS }],
+        onError: (err) => setToast({ 
+            show: true, 
+            msg: err?.message, 
+            severity: "error" 
+        })
+    })
 
     const handleClose = (i, reason) => {
         if ( reason === "backdropClick" ) {
@@ -29,12 +38,11 @@ export default function EditProjectTodoMenu({ todo, project, anchor, setAnchor, 
     const handleDeleteProjectTodo = async () => {
         try {
             if ( window.confirm( "Do you really want to delete this todo?" ) ) {
-                // await Axios.deleteProjectTodo(project.id, todo.id)
-                const storedProj = projects.find(p => p.id === project.id)
-                storedProj.todos = project.todos.filter(t => t.id !== todo.id)
-                console.log("deleted")
-                setAnchor(null)
+                deleteProjectTodo({
+                    variables: { deleteProjectTodoId: todo.id }
+                })
 
+                setAnchor(null)
                 setToast({ show: true, msg: "Successfully deleted new todo", severity: "success" })
             }
         } catch (err) {

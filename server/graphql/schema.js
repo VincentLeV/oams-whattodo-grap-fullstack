@@ -30,6 +30,7 @@ const Mutation = gql`
         addProjectTodo(projectId: UUID!, input: TodoInput): ProjectTodo
         updateProjectTodo(id: UUID!, input: TodoInput): ProjectTodo
         deleteProjectTodo(id: UUID!): UUID
+        deleteProjectTodosOfProject(projectId: UUID!): [UUID]
         deleteProjectTodos: [UUID]
     }
 `

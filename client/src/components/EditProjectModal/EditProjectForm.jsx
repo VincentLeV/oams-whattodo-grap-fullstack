@@ -5,20 +5,28 @@ import {
     TextField,
     Button
 } from "@mui/material"
+import { useMutation } from "@apollo/client"
 
-// import Axios from "../../services/axios"
-import { useProjects } from "../../contexts/ProjectContext"
+import { UPDATE_PROJECT } from "../../graphql/projects/mutations"
+import { ALL_PROJECTS } from "../../graphql/projects/queries"
 import { useToast } from "../../contexts/ToastContext"
 
 export default function EditProjectForm({ project, setIsEditModalOpen }) {
     const [ values, setValues ] = useState({ name: "" })
-    const { projects } = useProjects()
     const { setToast } = useToast()
 
+    const [ updateProject ] = useMutation( UPDATE_PROJECT, {
+        refetchQueries: [{ query: ALL_PROJECTS }],
+        onError: (err) => setToast({ 
+            show: true, 
+            msg: err?.message, 
+            severity: "error" 
+        }),
+    })
+
     useEffect(() => {
-        const savedProject = projects.find(p => p.id === project.id)
-        setValues({ name: savedProject.name })
-    }, [])
+        setValues({ name: project.name })
+    }, [project.name])
 
     const handleChange = (type) => (e) => {
         setValues({ ...values, [type]: e.target.value })
@@ -26,12 +34,12 @@ export default function EditProjectForm({ project, setIsEditModalOpen }) {
 
     const handleEditProject = async () => {
         try {
-            const newProject = { ...values, todos: project.todos }
-            // await Axios.updateProject(project.id, newProject)
-            const index = projects.findIndex(p => p.id === project.id)
-            projects.splice(index, 1, newProject)
+            updateProject({
+                variables: {
+                    project: { id: project.id, name: values.name } 
+                }
+            })
             setIsEditModalOpen(false)
-
             setToast({ show: true, msg: "Successfully edited project", severity: "success" })
         } catch (err) {
             setToast({ 

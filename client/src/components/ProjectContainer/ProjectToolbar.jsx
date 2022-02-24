@@ -7,26 +7,36 @@ import {
 import AddIcon from "@mui/icons-material/Add"
 import DeleteSweepRoundedIcon from "@mui/icons-material/DeleteSweepRounded"
 import EditRoundedIcon from "@mui/icons-material/EditRounded"
+import { useMutation } from "@apollo/client"
 
+import { DELETE_PROJECT } from "../../graphql/projects/mutations"
+import { ALL_PROJECTS } from "../../graphql/projects/queries"
 import AddProjectTodoModal from "../AddProjectTodoModal"
 import EditProjectModal from "../EditProjectModal"
-// import Axios from "../../services/axios"
 import { useToast } from "../../contexts/ToastContext"
-import { useProjects } from "../../contexts/ProjectContext"
 
 export default function ProjectToolbar({ project }) {
     const { setToast } = useToast()
-    const { projects, setProjects } = useProjects()
     const [ isModalOpen, setIsModalOpen ] = useState(false)
     const [ isEditModalOpen, setIsEditModalOpen ] = useState(false)
+
+    const [ deleteProject ] = useMutation( DELETE_PROJECT, {
+        refetchQueries: [{ query: ALL_PROJECTS }],
+        onError: (err) => setToast({ 
+            show: true, 
+            msg: err?.message, 
+            severity: "error" 
+        }),
+    })
 
     const handleDeleteProject = async () => {
         try {
             if ( window.confirm("Do you really want to delete this project and all of its tasks?") ) {
-                // await Axios.deleteProject(project.id)
-                const newProjects = projects.filter(p => p.id !== project.id)
-                setProjects(newProjects)
-                setToast({ show: true, msg: "Successfully deleted project", severity: "success" })
+                deleteProject({ 
+                    variables: { 
+                        deleteProjectId: project.id, 
+                    } 
+                })
             }
         } catch (err) {
             setToast({ 

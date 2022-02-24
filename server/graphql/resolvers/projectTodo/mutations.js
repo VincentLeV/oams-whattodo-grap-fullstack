@@ -2,7 +2,8 @@ const { uuid } = require('uuidv4')
 const { 
     createProjectTodo,
     updateProjectTodo,
-    deleteProjectTodo
+    deleteProjectTodo,
+    deleteProjectTodosOfProject
 } = require("../../../models/projectTodo")
 
 const projectTodoMutations = {
@@ -14,7 +15,6 @@ const projectTodoMutations = {
             id: uuid(),
             is_completed: isCompleted
         })
-        console.log(data)
 
         return {
             ...data,
@@ -42,6 +42,7 @@ const projectTodoMutations = {
         const data = await deleteProjectTodo(args.id)
         return { id: data.id }
     },
+    deleteProjectTodosOfProject: async (_, args) => await deleteProjectTodosOfProject(args.projectId),
     deleteProjectTodos: async () => await deleteTodos()
 }
 
