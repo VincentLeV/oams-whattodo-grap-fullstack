@@ -1,4 +1,4 @@
-const db = require("../index")
+const db = require("../db")
 
 const getTodos = async () => {
     const todos = await db("todos")
@@ -7,7 +7,7 @@ const getTodos = async () => {
 
 const getTodo = async (id) => {
     const todos = await db("todos").where("id", id)
-    return todos[0]
+    return todos
 }   
 
 const createTodo = async (todo) => {

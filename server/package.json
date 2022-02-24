@@ -6,12 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "knex:init": "knex migrate:make init --migrations-directory db/migrations",
+    "knex:init": "npx knex migrate:make init --migrations-directory db/migrations",
     "migrate": "npx knex migrate:latest --knexfile db/knexfile.js",
     "migrate:prod": "npx knex migrate:latest --knexfile db/knexfile.js --env production",
     "migrate:test": "npx knex migrate:latest --knexfile db/knexfile.js --env test",
-    "migrate:rb": "npx knex migrate:rollback --knexfile db/knexfile.js --env test",
-    "test": "cross-env NODE_ENV=test npm run migrate:rb && npm run migrate:test && jest --verbose --runInBand --detectOpenHandles"
+    "rb:dev": "npx knex migrate:rollback --knexfile db/knexfile.js --env development",
+    "rb:test": "npx knex migrate:rollback --knexfile db/knexfile.js --env test",
+    "seed": "npx knex seed:run --knexfile db/knexfile.js --env development",
+    "seed:td": "npx knex seed:make 01_todos",
+    "seed:proj": "npx knex seed:make 02_projects",
+    "seed:projtd": "npx knex seed:make 03_project_todos",
+    "test": "cross-env NODE_ENV=test npm run rb:test && npm run migrate:test && jest --verbose --runInBand --detectOpenHandles"
   },
   "keywords": [],
   "author": "",

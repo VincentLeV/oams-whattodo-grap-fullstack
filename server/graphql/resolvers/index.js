@@ -1,14 +1,17 @@
-const { 
-    todoQueries, 
-    todoMutations,
-} = require("./todo")
+const { todoQueries, todoMutations } = require("./todo")
+const { projectQueries, projectMutations } = require("./project")
+const { projectTodoQueries, projectTodoMutations } = require("./projectTodo")
 
 const resolvers = {
     Query: {
-        ...todoQueries
+        ...todoQueries,
+        ...projectQueries,
+        ...projectTodoQueries
     },
     Mutation: {
-        ...todoMutations
+        ...todoMutations,
+        ...projectMutations,
+        ...projectTodoMutations
     }
 }
 

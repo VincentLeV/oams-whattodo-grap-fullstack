@@ -35,15 +35,13 @@ describe("Todo", () => {
         for (const todo of todos) {
             const result = await testServer.executeOperation({
                 query: `
-                    mutation AddTodo($input: TodoInput){
+                    mutation AddTodo($input: TodoInput) {
                         addTodo(input: $input) {
                             id
                             description
                             deadline
                             priority
                             isCompleted
-                            createdAt
-                            updatedAt
                         }
                     }
                 `,
@@ -67,8 +65,6 @@ describe("Todo", () => {
                         deadline
                         priority
                         isCompleted
-                        createdAt
-                        updatedAt
                     }
                 }
             `,
@@ -76,12 +72,13 @@ describe("Todo", () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data?.todos).toBeDefined()
+        expect(result.data?.todos.length).toBe(2)
     })  
     
     it("returns a todo", async () => {
         const result = await testServer.executeOperation({
             query: `
-                query Todo($todoId: Int!) {
+                query Todo($todoId: UUID!) {
                     todo(id: $todoId) {
                         id
                         description
@@ -91,12 +88,12 @@ describe("Todo", () => {
                     }
                 }
             `,
-            variables: { "todoId": parseInt(initialResult[0]?.id) },
+            variables: { "todoId": initialResult[0]?.id },
         })
     
         expect(result.errors).toBeUndefined()
         expect(result.data?.todo).toBeDefined()
-        expect(result.data?.todo.id).toBe(String(initialResult[0]?.id))
+        expect(result.data?.todo.id).toBe(initialResult[0]?.id)
         expect(result.data?.todo.description).toBe("Test 1")
     })
 
@@ -126,7 +123,7 @@ describe("Todo", () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data?.addTodo).toBeDefined()
-        expect(result.data?.addTodo.id).toBe("3")
+        expect(result.data?.addTodo.id).toBeDefined()
         expect(result.data?.addTodo.description).toBe("Test 3")
     })
 
@@ -139,7 +136,7 @@ describe("Todo", () => {
 
         const result = await testServer.executeOperation({
             query: `
-                mutation UpdateTodo($input: TodoInput, $updateTodoId: Int!) {
+                mutation UpdateTodo($input: TodoInput, $updateTodoId: UUID!) {
                     updateTodo(input: $input, id: $updateTodoId) {
                         id
                         description
@@ -151,12 +148,12 @@ describe("Todo", () => {
                     }
                 }
             `,
-            variables: { "input": todo, "updateTodoId": Number(initialResult[1]?.id) },
+            variables: { "input": todo, "updateTodoId": initialResult[1]?.id },
         })
         
         expect(result.errors).toBeUndefined()
         expect(result.data?.updateTodo).toBeDefined()
-        expect(result.data?.updateTodo.id).toBe("2")
+        expect(result.data?.updateTodo.id).toBeDefined()
         expect(result.data?.updateTodo.description).toBe("Edited Todo")
         expect(result.data?.updateTodo.createdAt).not.toBe(new Date())
     })

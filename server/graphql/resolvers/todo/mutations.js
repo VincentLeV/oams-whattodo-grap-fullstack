@@ -4,12 +4,11 @@ const {
     updateTodo, 
     deleteTodo,
     deleteTodos
-} = require("../../../db/todoHelpers")
+} = require("../../../models/todo")
 
 const todoMutations = {
     addTodo: async (_, args) => {
-        const todo = { ...args.input }
-        const { isCompleted, ...newTodo } = todo
+        const { isCompleted, ...newTodo } = args.input 
         const data = await createTodo({ 
             ...newTodo, 
             id: uuid(),
@@ -18,8 +17,8 @@ const todoMutations = {
 
         return {
             ...data,
-            priority: data.priority ? data.priority : 0,
-            isCompleted: data.isCompleted ? data.isCompleted: false,
+            priority: data.priority,
+            isCompleted: data.is_completed,
             createdAt: data.created_at,
             updatedAt: data.updated_at
         }
