@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE todos (
     id uuid DEFAULT uuid_generate_v4(), 
     description TEXT NOT NULL, 
@@ -9,11 +11,6 @@ CREATE TABLE todos (
     PRIMARY KEY (id)
 );
 
-INSERT INTO todos (description, deadline, priority, is_completed, created_at, updated_at)
-VALUES 
-    ('Todo 1', '2022-02-18T08:40:33.268Z', 0, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z'),
-    ('Todo 2', '2022-02-18T08:40:33.268Z', 1, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z');
-
 CREATE TABLE projects (
     id uuid DEFAULT uuid_generate_v4(), 
     name TEXT UNIQUE NOT NULL, 
@@ -21,9 +18,6 @@ CREATE TABLE projects (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
-
-INSERT INTO projects (name)
-VALUES ('Project 1');
 
 CREATE TABLE project_todos (
     id uuid DEFAULT uuid_generate_v4(), 
@@ -40,3 +34,13 @@ CREATE TABLE project_todos (
         REFERENCES projects(id)
 );
 
+INSERT INTO todos (description, deadline, priority, is_completed, created_at, updated_at)
+VALUES 
+    ('Todo 1', '2022-02-18T08:40:33.268Z', 0, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z'),
+    ('Todo 2', '2022-02-18T08:40:33.268Z', 1, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z');
+
+INSERT INTO projects (name)
+VALUES ('Project 1');
+
+INSERT INTO project_todos (project_id, description, deadline, priority, is_completed, created_at, updated_at)
+VALUES ('9eabc928-7b9f-4748-b7f1-b1f7e9efa9b4', 'Project Todo 1', '2022-02-18T08:40:33.268Z', 1, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z')

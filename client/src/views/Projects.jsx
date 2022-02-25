@@ -3,16 +3,20 @@ import { Typography } from "@mui/material"
 import { useQuery } from "@apollo/client"
 
 import { ALL_PROJECTS } from "../graphql/projects/queries"
+import { ALL_PROJECT_TODOS } from "../graphql/projectTodos/queries"
 import ProjectContainer from "../components/ProjectContainer"
 
 export default function Projects() {
     const [ projects, setProjects ] = useState([])
     const projectResult = useQuery(ALL_PROJECTS)
+    // const projectTodoResult = useQuery(ALL_PROJECT_TODOS)
 
     useEffect(() => {
         (async () => {
             const allProjects = await projectResult?.data?.projects
             console.log("🚀 ~ file: Main.jsx ~ line 22 ~ allProjects", allProjects)
+
+            // const allProjectTodos = await projectTodoResult?.data?.projectTodos
 
             if (allProjects) {
                 setProjects(allProjects) 
@@ -29,6 +33,7 @@ export default function Projects() {
     }
 
     if ( projectResult.loading ) return <div>Loading...</div>
+    // if ( projectTodoResult.loading ) return <div>Loading...</div>
 
     return (
         <div>

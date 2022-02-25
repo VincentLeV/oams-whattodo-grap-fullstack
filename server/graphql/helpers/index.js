@@ -38,9 +38,13 @@ const formatProjects = async (projects) => {
         if (!project.id) return
         const { is_completed, created_at, updated_at, ...newProject } = project
         const todos = await getProjectTodos(project.id)
-        const projectTodos = await formatProjectTodos(todos)
+        
+        if (todos.length !== 0) {
+            const projectTodos = await formatProjectTodos(todos)
+            newProject.todos = projectTodos
+        }
 
-        newProject.todos = projectTodos
+        newProject.todos = []
         newProject.createdAt = project.created_at
         newProject.updatedAt = project.updated_at
 
