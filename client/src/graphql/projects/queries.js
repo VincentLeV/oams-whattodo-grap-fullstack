@@ -10,6 +10,8 @@ export const ALL_PROJECTS = gql`
             todos {
                 ...ProjectTodoDetails  
             }
+            createdAt
+            updatedAt
         }
     }
     ${PROJECT_TODO_DETAILS}
@@ -23,6 +25,8 @@ export const SINGLE_PROJECT = gql`
             todos {
                 ...ProjectTodoDetails
             }
+            createdAt
+            updatedAt
         }
     }
     ${PROJECT_TODO_DETAILS}

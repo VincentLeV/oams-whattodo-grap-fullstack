@@ -49,8 +49,8 @@ const formatProjects = async (projects) => {
         newProject.updatedAt = project.updated_at
         allProjects.push(newProject)
     }
-
-    return allProjects.length === 1 ? allProjects[0] : allProjects
+    
+    return allProjects
 }
 
 module.exports = {

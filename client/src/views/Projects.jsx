@@ -9,6 +9,7 @@ import ProjectContainer from "../components/ProjectContainer"
 export default function Projects() {
     const [ projects, setProjects ] = useState([])
     const projectResult = useQuery(ALL_PROJECTS)
+    console.log(projectResult)
     // const projectTodoResult = useQuery(ALL_PROJECT_TODOS)
 
     useEffect(() => {
