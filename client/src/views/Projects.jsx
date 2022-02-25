@@ -16,7 +16,7 @@ export default function Projects() {
             const allProjects = await projectResult?.data?.projects
             console.log("🚀 ~ file: Main.jsx ~ line 22 ~ allProjects", allProjects)
 
-            // const allProjectTodos = await projectTodoResult?.data?.projectTodos
+            // await projectTodoResult?.data?.projectTodos
 
             if (allProjects) {
                 setProjects(allProjects) 

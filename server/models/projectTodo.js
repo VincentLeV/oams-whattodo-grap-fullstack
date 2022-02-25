@@ -1,10 +1,5 @@
 const db = require("../db")
 
-const getAllProjectTodos = async () => {
-    const todos = await db("project_todos")
-    return todos
-}
-
 const getProjectTodos = async (projectId) => {
     const todos = await db("project_todos").where("project_id", projectId)
     return todos
@@ -72,7 +67,6 @@ const deleteProjectTodos = async () => {
 }
 
 module.exports = {
-    getAllProjectTodos,
     getProjectTodos,
     getProjectTodo,
     createProjectTodo,

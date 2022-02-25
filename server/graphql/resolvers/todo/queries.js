@@ -4,7 +4,7 @@ const { formatTodos } = require("../../helpers")
 const todoQueries = {
     todos: async () => {
         const todos = await getTodos()
-        const formattedTodos = await formatTodos(todos)
+        const formattedTodos = formatTodos(todos)
         return formattedTodos
     },
     todo: async (_, args) => {

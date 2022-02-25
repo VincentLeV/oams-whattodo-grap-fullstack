@@ -3,8 +3,8 @@ import { gql } from "@apollo/client"
 import { PROJECT_TODO_DETAILS } from "../fragments"
 
 export const ALL_PROJECT_TODOS = gql`
-    query ProjectTodos($projectId: UUID!) {
-        projectTodos(projectId: $projectId) {
+    query ProjectTodos {
+        projectTodos {
             ...ProjectTodoDetails
         }
     }
