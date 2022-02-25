@@ -33,14 +33,3 @@ CREATE TABLE project_todos (
         FOREIGN KEY(project_id) 
         REFERENCES projects(id)
 );
-
-INSERT INTO todos (description, deadline, priority, is_completed, created_at, updated_at)
-VALUES 
-    ('Todo 1', '2022-02-18T08:40:33.268Z', 0, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z'),
-    ('Todo 2', '2022-02-18T08:40:33.268Z', 1, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z');
-
-INSERT INTO projects (name)
-VALUES ('Project 1');
-
-INSERT INTO project_todos (project_id, description, deadline, priority, is_completed, created_at, updated_at)
-VALUES ('9eabc928-7b9f-4748-b7f1-b1f7e9efa9b4', 'Project Todo 1', '2022-02-18T08:40:33.268Z', 1, false, '2022-02-19T08:40:33.268Z', '2022-02-19T08:40:33.268Z')

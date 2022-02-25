@@ -11,7 +11,7 @@ const projectQueries = {
         const project = await getProject(args.id)
         if (project.length === 0) throw new Error("Error. Project doesn't exist")
         const formattedProjects = await formatProjects(project)
-        return formattedProjects
+        return formattedProjects[0]
     },
     projectCount: async () => {
         const projects = await getProjects()

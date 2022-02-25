@@ -50,6 +50,8 @@ describe("Project", () => {
             expect(result.errors).toBeUndefined()
             initialResult.push(result.data?.addProject)
         }
+
+        console.log("🚀 ~ file: project.test.js ~ line 15 ~ describe ~ initialResult", initialResult)
     })
 
     it ("returns all projects", async () => {
@@ -89,7 +91,7 @@ describe("Project", () => {
             `,
             variables: { "projectId": initialResult[0]?.id },
         })
-    
+        
         expect(result.errors).toBeUndefined()
         expect(result.data?.project).toBeDefined()
         expect(result.data?.project.id).toBe(initialResult[0]?.id)

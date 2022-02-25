@@ -10,7 +10,8 @@ export default function ProjectContainer({ index, project }) {
     const [ newProject, setNewProject ] = useState({})
 
     useEffect(() => {  
-        const newTodos = sortTodos([...project.todos], "completed")
+        if (!project.todos) return
+        const newTodos = sortTodos([...project?.todos], "completed")
         const { todos, ...restOfProject } = project
         setNewProject({ ...restOfProject, todos: newTodos })
     }, [project])
@@ -18,7 +19,7 @@ export default function ProjectContainer({ index, project }) {
     return (
         <Accordion>
             <ProjectHeader index={index} project={project} />
-            {newProject.todos?.map((todo, i) => <ProjectContent key={i} project={project} todo={todo} />)}
+            {newProject?.todos?.map((todo, i) => <ProjectContent key={i} project={project} todo={todo} />)}
 
             <ProjectToolbar project={project} />
         </Accordion>

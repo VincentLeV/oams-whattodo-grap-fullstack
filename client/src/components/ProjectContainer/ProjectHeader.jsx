@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import {
     AccordionSummary,
     Typography,
@@ -7,6 +7,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
 export default function ProjectHeader({ index, project }) {
+    const [ todoLength, setTodoLength ] = useState("0")
+    useEffect(() => {
+        if (!project.todos) return
+        setTodoLength(project.todos.length)
+    }, [project])
+
     return (
         <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -29,7 +35,7 @@ export default function ProjectHeader({ index, project }) {
                     component="p" 
                     sx={{ ml: 2, color: "gray" }}
                 >
-                    {project.todos.length} tasks
+                    {todoLength} tasks
                 </Typography>
             </Stack>
         </AccordionSummary>

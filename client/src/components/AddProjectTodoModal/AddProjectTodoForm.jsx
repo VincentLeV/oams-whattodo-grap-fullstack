@@ -12,8 +12,7 @@ import FlagRoundedIcon from "@mui/icons-material/FlagRounded"
 import { useMutation } from "@apollo/client"
 
 import { ADD_PROJECT_TODO } from "../../graphql/projectTodos/mutations"
-import { SINGLE_PROJECT } from "../../graphql/projects/queries"
-import { ALL_PROJECT_TODOS } from "../../graphql/projectTodos/queries"
+import { ALL_PROJECTS } from "../../graphql/projects/queries"
 import PriorityMenu from "../PriorityMenu"
 import { useToast } from "../../contexts/ToastContext"
 import DTPicker from "../DTPicker"
@@ -26,7 +25,7 @@ export default function AddProjectTodoForm({ project, setIsModalOpen }) {
     const [ deadline, setDeadline ] = useState(new Date()) 
 
     const [ createProjectTodo ] = useMutation( ADD_PROJECT_TODO, {
-        refetchQueries: [{ query: SINGLE_PROJECT, variables: {projectId: project.id} }, { query: ALL_PROJECT_TODOS, variables: {projectId: project.id} }],
+        refetchQueries: [{ query: ALL_PROJECTS }],
         onError: (err) => setToast({ 
             show: true, 
             msg: err?.message, 
