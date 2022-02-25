@@ -7,7 +7,8 @@ const { formatProjectTodos } = require("../../helpers")
 const projectTodoQueries = {
     projectTodos: async (_, args) => {
         const todos = await getProjectTodos(args.projectId)
-        return formatProjectTodos(todos)
+        const formattedTodos = await formatProjectTodos(todos)
+        return formattedTodos
     },
     projectTodo: async (_, args) => {
         const todos = await getProjectTodo(args.id)

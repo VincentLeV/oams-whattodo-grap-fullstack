@@ -2,6 +2,7 @@ const { getProjectTodos } = require("../../models/projectTodo")
 
 const formatTodos = async (todos) => {
     const allTodos = []
+
     todos.forEach(todo => {
         const { is_completed, created_at, updated_at, ...newTodo } = todo 
 
@@ -16,7 +17,7 @@ const formatTodos = async (todos) => {
 
 const formatProjectTodos = async (projectTodos) => {
     const allTodos = []
-    console.log(projectTodos)
+
     for (const todo of projectTodos) {
         const { is_completed, created_at, updated_at, project_id, ...newTodo } = todo 
 
@@ -28,7 +29,7 @@ const formatProjectTodos = async (projectTodos) => {
         allTodos.push(newTodo)
     }
 
-    return allTodos
+    return allTodos.length === 1 ? allTodos[0] : allTodos
 }
 
 const formatProjects = async (projects) => {
