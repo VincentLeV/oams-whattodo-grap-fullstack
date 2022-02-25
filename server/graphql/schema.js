@@ -9,7 +9,7 @@ const Query = gql`
         todo(id: UUID!): Todo!
         projects: [Project]!
         project(id: UUID!): Project!
-        projectTodos(id: UUID!): [ProjectTodo]
+        projectTodos(projectId: UUID!): [ProjectTodo]
         projectTodo(id: UUID!): ProjectTodo!
         projectCount: Int!
         todoCount: Int!
