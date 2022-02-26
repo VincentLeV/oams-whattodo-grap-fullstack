@@ -12,7 +12,7 @@ const formatTodos = (todos) => {
 
         allTodos.push(newTodo)
     }
-    console.log(allTodos)
+    
     return allTodos
 }
 

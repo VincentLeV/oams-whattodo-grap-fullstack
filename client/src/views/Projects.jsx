@@ -12,7 +12,7 @@ export default function Projects() {
     useEffect(() => {
         (async () => {
             const allProjects = await projectResult?.data?.projects
-            console.log("🚀 ~ file: Main.jsx ~ line 22 ~ allProjects", allProjects)
+            // console.log("🚀 ~ file: Main.jsx ~ line 22 ~ allProjects", allProjects)
 
             if (allProjects) {
                 setProjects(allProjects) 

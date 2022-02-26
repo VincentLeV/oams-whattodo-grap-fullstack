@@ -17,7 +17,7 @@ export default function QuickTodos() {
     useEffect(() => {
         (async () => {
             const allTodos = await todoResult?.data?.todos
-            console.log("🚀 ~ file: Main.jsx ~ line 23 ~ useEffect ~ allTodos", allTodos)
+            // console.log("🚀 ~ file: Main.jsx ~ line 23 ~ useEffect ~ allTodos", allTodos)
 
             if (allTodos) {
                 const sorted = sortTodos(allTodos, "completed")
