@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '../.env' })
-const { POSTGRES_USER, POSTGRES_PASSWORD, DATABASE_URL } = require("../utils/config")
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DATABASE, DATABASE_URL } = require("../utils/config")
 
 module.exports = {
     development: {

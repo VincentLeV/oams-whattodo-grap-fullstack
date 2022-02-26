@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE todos (
+CREATE TABLE IF NOT EXISTS todos (
     id uuid DEFAULT uuid_generate_v4(), 
     description TEXT NOT NULL, 
     deadline TIMESTAMP WITH TIME ZONE, 
@@ -11,7 +11,7 @@ CREATE TABLE todos (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE projects (
+CREATE TABLE IF NOT EXISTS projects (
     id uuid DEFAULT uuid_generate_v4(), 
     name TEXT UNIQUE NOT NULL, 
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -19,7 +19,7 @@ CREATE TABLE projects (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE project_todos (
+CREATE TABLE IF NOT EXISTS project_todos (
     id uuid DEFAULT uuid_generate_v4(), 
     project_id uuid,
     description TEXT NOT NULL, 
