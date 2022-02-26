@@ -8,7 +8,7 @@ import {
 import { useMutation } from "@apollo/client"
 
 import { UPDATE_PROJECT } from "../../graphql/projects/mutations"
-import { ALL_PROJECTS, SINGLE_PROJECT } from "../../graphql/projects/queries"
+import { SINGLE_PROJECT } from "../../graphql/projects/queries"
 import { useToast } from "../../contexts/ToastContext"
 
 export default function EditProjectForm({ project, setIsEditModalOpen }) {
@@ -16,8 +16,7 @@ export default function EditProjectForm({ project, setIsEditModalOpen }) {
     const { setToast } = useToast()
 
     const [ updateProject ] = useMutation( UPDATE_PROJECT, {
-        // refetchQueries: [{ query: ALL_PROJECTS }],
-        refetchQueries: [{ query: SINGLE_PROJECT, variables: {projectId: project.id} }],
+        refetchQueries: [{ query: SINGLE_PROJECT, variables: { projectId: project.id } }],
         onError: (err) => setToast({ 
             show: true, 
             msg: err?.message, 

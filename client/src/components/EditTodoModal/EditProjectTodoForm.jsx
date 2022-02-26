@@ -27,7 +27,7 @@ export default function EditProjectTodoForm({ todo, project, setIsModalOpen, set
     const [ deadline, setDeadline ] = useState(todo.deadline) 
 
     const [ updateProjectTodo ] = useMutation( UPDATE_PROJECT_TODO, {
-        refetchQueries: [{ query: SINGLE_PROJECT, variables: {projectId: project.id} }],
+        refetchQueries: [{ query: SINGLE_PROJECT, variables: { projectId: project.id } }],
         onError: (err) => setToast({ 
             show: true, 
             msg: err?.message, 

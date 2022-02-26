@@ -22,7 +22,7 @@ export default function ProjectToolbar({ project }) {
     const [ isEditModalOpen, setIsEditModalOpen ] = useState(false)
 
     const [ deleteProject ] = useMutation( DELETE_PROJECT, {
-        refetchQueries: [{ query: ALL_PROJECTS }, { query: ALL_PROJECT_TODOS, variables: {projectId: project.id} }],
+        refetchQueries: [{ query: ALL_PROJECTS }, { query: ALL_PROJECT_TODOS, variables: { projectId: project.id } }],
         onError: (err) => setToast({ 
             show: true, 
             msg: err?.message, 

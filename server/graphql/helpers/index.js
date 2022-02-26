@@ -3,7 +3,7 @@ const { getProjectTodos } = require("../../models/projectTodo")
 const formatTodos = (todos) => {
     const allTodos = []
 
-    todos.forEach(todo => {
+    for (const todo of todos) {
         const { is_completed, created_at, updated_at, ...newTodo } = todo 
 
         newTodo.isCompleted = todo.is_completed
@@ -11,8 +11,9 @@ const formatTodos = (todos) => {
         newTodo.updatedAt = todo.updated_at
 
         allTodos.push(newTodo)
-    })
-    return allTodos.length === 1 ? allTodos[0] : allTodos
+    }
+    console.log(allTodos)
+    return allTodos
 }
 
 const formatProjectTodos = (projectTodos) => {

@@ -39,7 +39,7 @@ export default function QuickTodos() {
     return (
         <Box id="todos-container">
             <List>
-                {todos.map((t, i) => <TodoContainer key={t.id} todo={t} />)}
+                {todos.map(t => <TodoContainer key={t.id} todo={t} />)}
             </List>
         </Box>
     )

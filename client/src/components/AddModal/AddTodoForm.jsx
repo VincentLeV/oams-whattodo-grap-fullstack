@@ -13,7 +13,7 @@ import { useMutation } from "@apollo/client"
 
 import { ADD_TODO } from "../../graphql/todos/mutations"
 import { ALL_TODOS } from "../../graphql/todos/queries"
-import { sortTodos } from "../../utils/helpers"
+// import { sortTodos } from "../../utils/helpers"
 import PriorityMenu from "../PriorityMenu"
 import { useToast } from "../../contexts/ToastContext"
 import DTPicker from "../DTPicker"
@@ -26,31 +26,32 @@ export default function AddTodoForm({ setIsModalOpen }) {
     const [ deadline, setDeadline ] = useState(new Date()) 
 
     const [ createTodo ] = useMutation( ADD_TODO, {
+        refetchQueries: [{ query: ALL_TODOS }],
         onError: (err) => setToast({ 
             show: true, 
             msg: err?.message, 
             severity: "error" 
         }),
-        update: (store, res) => {
-            try {
-                const dataInStore = store.readQuery({ query: ALL_TODOS })
-                const newTodos = [ ...dataInStore.todos, res.data.addTodo ]
+        // update: (store, res) => {
+        //     try {
+        //         const dataInStore = store.readQuery({ query: ALL_TODOS })
+        //         const newTodos = [ ...dataInStore.todos, res.data.addTodo ]
 
-                store.writeQuery({
-                    query: ALL_TODOS,
-                    data: {
-                        ...dataInStore,
-                        todos: sortTodos(newTodos, "priority")
-                    }
-                })
-            } catch (err) {
-                setToast({ 
-                    show: true, 
-                    msg: err?.message, 
-                    severity: "error" 
-                })
-            }
-        }
+        //         store.writeQuery({
+        //             query: ALL_TODOS,
+        //             data: {
+        //                 ...dataInStore,
+        //                 todos: sortTodos(newTodos, "priority")
+        //             }
+        //         })
+        //     } catch (err) {
+        //         setToast({ 
+        //             show: true, 
+        //             msg: err?.message, 
+        //             severity: "error" 
+        //         })
+        //     }
+        // }
     })
 
     const handleChange = (type) => (e) => {

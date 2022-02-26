@@ -11,8 +11,8 @@ export default function ProjectContainer({ index, project }) {
 
     useEffect(() => {  
         if (!project.todos) return
-        const newTodos = sortTodos([...project?.todos], "completed")
         const { todos, ...restOfProject } = project
+        const newTodos = sortTodos([...todos], "completed")
         setNewProject({ ...restOfProject, todos: newTodos })
     }, [project])
 
