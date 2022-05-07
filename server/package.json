@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "oams-whattodo-grap-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "test": "cross-env NODE_ENV=test npm run rb:test && npm run migrate:test && jest --verbose --runInBand --detectOpenHandles"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vincent Le",
   "license": "ISC",
   "dependencies": {
     "@graphql-tools/schema": "^8.3.1",

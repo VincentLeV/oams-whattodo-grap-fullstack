@@ -1,5 +1,6 @@
 {
-  "name": "client",
+  "name": "oams-whattodo-grap-frontend",
+  "author": "Vincent Le",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
